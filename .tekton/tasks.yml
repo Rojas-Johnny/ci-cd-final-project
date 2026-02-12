@@ -53,6 +53,9 @@ spec:
       script: |
           #!/bin/bash
           set -e
-          python -m pip install --user --upgrade pip wheel
-          pip install -r requirements.txt
-          nosetests $(params.args)  
+          curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+          python get-pip.py --user
+          export PATH=$PATH:$(python -m site --user-base)/bin
+          
+          python -m pip install -r requirements.txt
+          nosetests $(params.args)
